@@ -47,7 +47,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
                 <ListItemIcon>
                   <Icon>{<HomeOutlined />}</Icon>
                 </ListItemIcon>
-                <ListItemText primary="Dashboard" />
+                <ListItemText primary="Página Inicial" />
               </ListItemButton>
             </List>
           </Box>
