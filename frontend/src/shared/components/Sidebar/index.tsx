@@ -1,9 +1,13 @@
+import { HomeOutlined } from '@mui/icons-material'
 import {
   Avatar,
   Divider,
   Drawer,
+  Icon,
   List,
   ListItemButton,
+  ListItemIcon,
+  ListItemText,
   useTheme,
 } from '@mui/material'
 import { Box } from '@mui/system'
@@ -39,7 +43,12 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
           <Divider />
           <Box flex="1">
             <List component="nav">
-              <ListItemButton>menu</ListItemButton>
+              <ListItemButton>
+                <ListItemIcon>
+                  <Icon>{<HomeOutlined />}</Icon>
+                </ListItemIcon>
+                <ListItemText primary="Dashboard" />
+              </ListItemButton>
             </List>
           </Box>
         </Box>
