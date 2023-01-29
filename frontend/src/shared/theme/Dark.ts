@@ -1,5 +1,5 @@
-import { createTheme } from "@mui/material";
-import { blue, green } from "@mui/material/colors";
+import { createTheme } from '@mui/material'
+import { blue, green } from '@mui/material/colors'
 
 export const DarkTheme = createTheme({
   palette: {
@@ -18,6 +18,6 @@ export const DarkTheme = createTheme({
     background: {
       paper: '#29292E',
       default: '#121214',
-    }
-  }
+    },
+  },
 })
