@@ -1,4 +1,3 @@
-import { HomeOutlined } from '@mui/icons-material'
 import {
   Avatar,
   Divider,
@@ -13,16 +12,47 @@ import {
 } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { ReactNode } from 'react'
+import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom'
 import { useDrawerContext } from '../../../context/DrawerContext'
 
 type SidebarProps = {
   children: ReactNode
 }
 
+type ListItemLinkProps = {
+  to: string
+  icon: string
+  label: string
+  onClick: (() => void) | undefined
+}
+
+const ListItemLink: React.FC<ListItemLinkProps> = ({
+  to,
+  icon,
+  label,
+  onClick,
+}) => {
+  const navigate = useNavigate()
+  const resolvedPath = useResolvedPath(to)
+  const match = useMatch({ path: resolvedPath.pathname, end: false })
+  const handleClick = () => {
+    navigate(to)
+    onClick?.()
+  }
+  return (
+    <ListItemButton selected={!!match} onClick={handleClick}>
+      <ListItemIcon>
+        <Icon>{icon}</Icon>
+      </ListItemIcon>
+      <ListItemText primary={label} />
+    </ListItemButton>
+  )
+}
+
 const Sidebar: React.FC<SidebarProps> = ({ children }) => {
   const theme = useTheme()
   const smDown = useMediaQuery(theme.breakpoints.down('sm'))
-  const { isDrawerOpen, toggleDrawerOpen } = useDrawerContext()
+  const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext()
   return (
     <>
       <Drawer
@@ -51,12 +81,15 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
           <Divider />
           <Box flex="1">
             <List component="nav">
-              <ListItemButton>
-                <ListItemIcon>
-                  <Icon>{<HomeOutlined />}</Icon>
-                </ListItemIcon>
-                <ListItemText primary="Página Inicial" />
-              </ListItemButton>
+              {drawerOptions.map((drawerOption) => (
+                <ListItemLink
+                  key={drawerOption.path}
+                  icon={drawerOption.icon}
+                  to={drawerOption.path}
+                  label={drawerOption.label}
+                  onClick={toggleDrawerOpen}
+                />
+              ))}
             </List>
           </Box>
         </Box>
